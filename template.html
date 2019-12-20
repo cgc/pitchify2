@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/site.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>
+  </head>
+  <body>
+    <div class="container clearfix"></div>
+    <script class="template" type="text/template">
+      {{#albums}}
+      <div class="album">
+        <div class="album-cover">
+          <img src="{{cover}}" class="album-cover-img" loading="lazy" />
+          <a target="_blank" href="{{pitchfork}}" class="album-cover-hover album-cover-hover-left">
+            <img src="/static/pitchfork.png" />
+          </a>
+          <a target="_blank" href="{{spotify}}" class="album-cover-hover album-cover-hover-right">
+            <img src="/static/spotify.png" />
+          </a>
+        </div>
+        <div class="album-name-hover">
+          <b>{{artist}}: {{album}}</b>
+        </div>
+        <div class="album-name">
+          <b>{{artist}}: {{album}}</b>
+        </div>
+      </div>
+      {{/albums}}
+    </script>
+    <script>
+    let data = %s;
+    let template = document.querySelector('.template').innerHTML;
+    let container = document.querySelector('.container');
+    container.innerHTML = Mustache.render(template, {albums: data});
+    </script>
+  </body>
+</html>
