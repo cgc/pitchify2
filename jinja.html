@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/site.css">
+  </head>
+  <body>
+    <div class="container clearfix">
+      {% for album in albums %}
+      <div class="album">
+        <div class="album-cover">
+          <img src="{{album.cover}}" class="album-cover-img" loading="lazy" />
+          <a target="_blank" href="{{album.pitchfork}}" class="album-cover-hover album-cover-hover-left">
+            <img src="static/pitchfork.png" />
+          </a>
+          <a target="_blank" href="{{album.spotify}}" class="album-cover-hover album-cover-hover-right">
+            <img src="static/spotify.png" />
+          </a>
+        </div>
+        <div class="album-name-hover">
+          <b>{{album.artist}}: {{album.album}}</b>
+        </div>
+        <div class="album-name">
+          <b>{{album.artist}}: {{album.album}}</b>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
