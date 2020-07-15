@@ -58,6 +58,12 @@ def outdated_spotify(month_file):
         return True
 
 
+def log_items(items):
+    for a in items:
+        aa = ', '.join(art['name'] for art in a['artists'])
+        print(f"type={a['type']} album_type={a.get('album_type')} release_date={a['release_date']} name={a['name']} artists={aa}")
+
+
 def update_spotify(client, month_file):
     with open('data/pitchfork/'+month_file, 'r') as f:
         pf = json.load(f)
@@ -85,7 +91,11 @@ def update_spotify(client, month_file):
                     a['external_urls']['spotify']
                     for a in items
                 ]
-                print(f'Warning, found more than one item for artist:{artist}, album:{album}, {urls} {items}')
+                print(f'Warning, found more than one item for artist:{artist}, album:{album}')
+                try:
+                    log_items(items)
+                except:
+                    pass
             loaded[album, artist] = items[0]
         else:
             print('No results')
