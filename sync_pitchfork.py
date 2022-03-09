@@ -2,6 +2,19 @@ import os
 import requests
 import json
 import dateutil.parser as parser
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
+
+# from https://findwork.dev/blog/advanced-usage-python-requests-timeouts-retries-hooks/
+retry_strategy = Retry(
+    total=3,
+    status_forcelist=[429, 500, 502, 503, 504],
+    method_whitelist=["HEAD", "GET", "OPTIONS"]
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
+http = requests.Session()
+http.mount("https://", adapter)
+http.mount("http://", adapter)
 
 browser = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'
 
@@ -10,7 +23,7 @@ markerfile = 'data/pitchfork-last-download-pubDate'
 def gen_reviews(size=12):
     idx = 0
     while True:
-        r = requests.get('https://pitchfork.com/api/v2/search/', params=dict(
+        r = http.get('https://pitchfork.com/api/v2/search/', params=dict(
             types='reviews',
             hierarchy='sections/reviews/albums,channels/reviews/albums',
             sort='publishdate desc,position asc',
@@ -71,4 +84,3 @@ def sync():
 
 if __name__ == '__main__':
     sync()
-
