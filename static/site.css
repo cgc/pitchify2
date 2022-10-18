@@ -33,7 +33,8 @@ h2 {
   height: 160px;
 }
 .album-cover-hover {
-  display: none;
+  opacity: 0;
+  transition: opacity 200ms;
 
   background: rgba(255, 255, 255, 0.5);
   text-align: center;
@@ -52,11 +53,11 @@ h2 {
   right: 0;
 }
 .album-cover:hover .album-cover-hover {
-  display: block;
+  opacity: 1;
 }
 .album-name {
   overflow: hidden;
-  height: 2rem;
+  height: 2.1rem;
   width: 160px;
 }
 .album-name-hover {
@@ -71,4 +72,3 @@ h2 {
 .album:hover .album-name-hover {
   display: block;
 }
-
