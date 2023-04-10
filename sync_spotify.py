@@ -87,10 +87,6 @@ def update_spotify(client, month_file):
         items = hacky_album_search(client, artist, album, year)
         if items:
             if len(items)>1:
-                urls = [
-                    a['external_urls']['spotify']
-                    for a in items
-                ]
                 print(f'Warning, found more than one item for artist:{artist}, album:{album}')
                 try:
                     log_items(items)

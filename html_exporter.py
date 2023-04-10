@@ -18,7 +18,7 @@ def load_data(month_file):
         artist = artists[0] if artists else ''
         album = a['tombstone']['albums'][0]['album']['display_name']
         cover = a['tombstone']['albums'][0]['album']['photos']['tout']['sizes']['list']
-        if (album, artist) in sp:
+        if sp.get((album, artist)):
             spotify = sp[album, artist]['uri']
         else:
             spotify = 'spotify:search:'+urllib.parse.quote(artist+' '+album)
